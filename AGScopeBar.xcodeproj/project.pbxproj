@@ -1,0 +1,316 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5DA74E631598E6B000BB1495 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA74E621598E6B000BB1495 /* Cocoa.framework */; };
+		5DA74E6D1598E6B000BB1495 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DA74E6B1598E6B000BB1495 /* InfoPlist.strings */; };
+		5DA74E6F1598E6B000BB1495 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E6E1598E6B000BB1495 /* main.m */; };
+		5DA74E731598E6B000BB1495 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5DA74E711598E6B000BB1495 /* Credits.rtf */; };
+		5DA74E761598E6B000BB1495 /* AGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E751598E6B000BB1495 /* AGAppDelegate.m */; };
+		5DA74E791598E6B000BB1495 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA74E771598E6B000BB1495 /* MainMenu.xib */; };
+		5DBE61B915990CEF0047E1EE /* AGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E831598E6D700BB1495 /* AGScopeBar.m */; };
+		5DBE61BD15990F800047E1EE /* MGRecessedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */; };
+		5DBE61BE15990F860047E1EE /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E801598E6C200BB1495 /* MGScopeBar.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5DA74E5E1598E6B000BB1495 /* AGScopeBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGScopeBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DA74E621598E6B000BB1495 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		5DA74E651598E6B000BB1495 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		5DA74E661598E6B000BB1495 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5DA74E671598E6B000BB1495 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5DA74E6A1598E6B000BB1495 /* AGScopeBar-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AGScopeBar-Info.plist"; sourceTree = "<group>"; };
+		5DA74E6C1598E6B000BB1495 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5DA74E6E1598E6B000BB1495 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5DA74E701598E6B000BB1495 /* AGScopeBar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AGScopeBar-Prefix.pch"; sourceTree = "<group>"; };
+		5DA74E721598E6B000BB1495 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		5DA74E741598E6B000BB1495 /* AGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAppDelegate.h; sourceTree = "<group>"; };
+		5DA74E751598E6B000BB1495 /* AGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAppDelegate.m; sourceTree = "<group>"; };
+		5DA74E781598E6B000BB1495 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		5DA74E7F1598E6C200BB1495 /* MGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGScopeBar.h; sourceTree = "<group>"; };
+		5DA74E801598E6C200BB1495 /* MGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGScopeBar.m; sourceTree = "<group>"; };
+		5DA74E821598E6D700BB1495 /* AGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGScopeBar.h; sourceTree = "<group>"; };
+		5DA74E831598E6D700BB1495 /* AGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGScopeBar.m; sourceTree = "<group>"; };
+		5DBE61BB15990F800047E1EE /* MGRecessedPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRecessedPopUpButtonCell.h; sourceTree = "<group>"; };
+		5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRecessedPopUpButtonCell.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5DA74E5B1598E6B000BB1495 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DA74E631598E6B000BB1495 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5DA74E531598E6B000BB1495 = {
+			isa = PBXGroup;
+			children = (
+				5DA74E681598E6B000BB1495 /* AGScopeBar */,
+				5DA74E611598E6B000BB1495 /* Frameworks */,
+				5DA74E5F1598E6B000BB1495 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5DA74E5F1598E6B000BB1495 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5DA74E5E1598E6B000BB1495 /* AGScopeBar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5DA74E611598E6B000BB1495 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5DA74E621598E6B000BB1495 /* Cocoa.framework */,
+				5DA74E641598E6B000BB1495 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5DA74E641598E6B000BB1495 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5DA74E651598E6B000BB1495 /* AppKit.framework */,
+				5DA74E661598E6B000BB1495 /* CoreData.framework */,
+				5DA74E671598E6B000BB1495 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		5DA74E681598E6B000BB1495 /* AGScopeBar */ = {
+			isa = PBXGroup;
+			children = (
+				5DA74E741598E6B000BB1495 /* AGAppDelegate.h */,
+				5DA74E751598E6B000BB1495 /* AGAppDelegate.m */,
+				5DA74E821598E6D700BB1495 /* AGScopeBar.h */,
+				5DA74E831598E6D700BB1495 /* AGScopeBar.m */,
+				5DA74E7F1598E6C200BB1495 /* MGScopeBar.h */,
+				5DA74E801598E6C200BB1495 /* MGScopeBar.m */,
+				5DBE61BB15990F800047E1EE /* MGRecessedPopUpButtonCell.h */,
+				5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */,
+				5DA74E771598E6B000BB1495 /* MainMenu.xib */,
+				5DA74E691598E6B000BB1495 /* Supporting Files */,
+			);
+			path = AGScopeBar;
+			sourceTree = "<group>";
+		};
+		5DA74E691598E6B000BB1495 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5DA74E6A1598E6B000BB1495 /* AGScopeBar-Info.plist */,
+				5DA74E6B1598E6B000BB1495 /* InfoPlist.strings */,
+				5DA74E6E1598E6B000BB1495 /* main.m */,
+				5DA74E701598E6B000BB1495 /* AGScopeBar-Prefix.pch */,
+				5DA74E711598E6B000BB1495 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5DA74E5D1598E6B000BB1495 /* AGScopeBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DA74E7C1598E6B000BB1495 /* Build configuration list for PBXNativeTarget "AGScopeBar" */;
+			buildPhases = (
+				5DA74E5A1598E6B000BB1495 /* Sources */,
+				5DA74E5B1598E6B000BB1495 /* Frameworks */,
+				5DA74E5C1598E6B000BB1495 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AGScopeBar;
+			productName = AGScopeBar;
+			productReference = 5DA74E5E1598E6B000BB1495 /* AGScopeBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5DA74E551598E6B000BB1495 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = AG;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Araelium Group";
+			};
+			buildConfigurationList = 5DA74E581598E6B000BB1495 /* Build configuration list for PBXProject "AGScopeBar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5DA74E531598E6B000BB1495;
+			productRefGroup = 5DA74E5F1598E6B000BB1495 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5DA74E5D1598E6B000BB1495 /* AGScopeBar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5DA74E5C1598E6B000BB1495 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DA74E6D1598E6B000BB1495 /* InfoPlist.strings in Resources */,
+				5DA74E731598E6B000BB1495 /* Credits.rtf in Resources */,
+				5DA74E791598E6B000BB1495 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5DA74E5A1598E6B000BB1495 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DA74E6F1598E6B000BB1495 /* main.m in Sources */,
+				5DBE61B915990CEF0047E1EE /* AGScopeBar.m in Sources */,
+				5DA74E761598E6B000BB1495 /* AGAppDelegate.m in Sources */,
+				5DBE61BE15990F860047E1EE /* MGScopeBar.m in Sources */,
+				5DBE61BD15990F800047E1EE /* MGRecessedPopUpButtonCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5DA74E6B1598E6B000BB1495 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DA74E6C1598E6B000BB1495 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5DA74E711598E6B000BB1495 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DA74E721598E6B000BB1495 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		5DA74E771598E6B000BB1495 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5DA74E781598E6B000BB1495 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5DA74E7A1598E6B000BB1495 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		5DA74E7B1598E6B000BB1495 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5DA74E7D1598E6B000BB1495 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AGScopeBar/AGScopeBar-Prefix.pch";
+				INFOPLIST_FILE = "AGScopeBar/AGScopeBar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		5DA74E7E1598E6B000BB1495 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AGScopeBar/AGScopeBar-Prefix.pch";
+				INFOPLIST_FILE = "AGScopeBar/AGScopeBar-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5DA74E581598E6B000BB1495 /* Build configuration list for PBXProject "AGScopeBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DA74E7A1598E6B000BB1495 /* Debug */,
+				5DA74E7B1598E6B000BB1495 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DA74E7C1598E6B000BB1495 /* Build configuration list for PBXNativeTarget "AGScopeBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DA74E7D1598E6B000BB1495 /* Debug */,
+				5DA74E7E1598E6B000BB1495 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5DA74E551598E6B000BB1495 /* Project object */;
+}
