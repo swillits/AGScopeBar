@@ -26,7 +26,11 @@ it doesn't have a big selected background, and fits to the title width.
 4) AGScopeBar allows the selection mode where one or more items can
 be selected, while MGScopeBar does not.
 
+<<<<<<< HEAD
 ![Screenshot](https://github.com/swillits/AGScopeBar/raw/master/Screenshot.png)
+=======
+![Screenshot](https://github.com/swillits/AGScopeBar/raw/master/Docs/Screenshot.png)
+>>>>>>> Initial version.
 
 
 Furthermore, the AGScopeBar API is much sleeker, while being richer.
@@ -38,7 +42,11 @@ AGScopeBar doesn't have a "reload" metaphor — you simply modify the
 one thing you want to change directly.
 
 
+<<<<<<< HEAD
 ![Screenshot](https://github.com/swillits/AGScopeBar/raw/master/Screenshot2.png)
+=======
+![Screenshot](https://github.com/swillits/AGScopeBar/raw/master/Docs/Screenshot2.png)
+>>>>>>> Initial version.
 
 Which would you rather write?
 
