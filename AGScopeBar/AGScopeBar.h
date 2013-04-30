@@ -37,6 +37,7 @@ typedef enum {
 	NSMenuItem * mMenuItem;
 }
 
+@property (readonly) AGScopeBarGroup * group;
 @property (readonly) NSString * identifier;
 @property (readwrite, retain) NSString * title;
 @property (readwrite, copy) NSImage * image;
@@ -92,7 +93,9 @@ typedef enum {
 - (void)removeItemAtIndex:(NSUInteger)index;
 
 - (AGScopeBarItem *)itemAtIndex:(NSUInteger)index;
-- (NSUInteger)indexOfItemWithIdentifier:(NSString *)identifier;
+- (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier;
+
+- (void)setSelected:(BOOL)selected forItem:(AGScopeBarItem *)item;
 
 @end
 
@@ -127,9 +130,9 @@ typedef enum {
 - (void)insertGroup:(AGScopeBarGroup *)group atIndex:(NSUInteger)index;
 - (void)removeGroupAtIndex:(NSUInteger)index;
 
-- (AGScopeBarGroup *)groupWithItem:(AGScopeBarItem *)item;
+- (AGScopeBarGroup *)groupContainingItem:(AGScopeBarItem *)item;
 - (AGScopeBarGroup *)groupAtIndex:(NSUInteger)index;
-- (NSUInteger)indexOfGroupWithIdentifier:(NSString *)identifier;
+- (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier;
 
 @end
 

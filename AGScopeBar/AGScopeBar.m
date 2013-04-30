@@ -67,7 +67,6 @@
 @property (readonly) NSView * view;
 @property (readonly) NSView * collapsedView;
 - (void)tile;
-- (void)setSelected:(BOOL)selected forItem:(AGScopeBarItem *)item;
 - (void)validateSelectedItems;
 - (void)_informDelegate_item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
 @end
@@ -277,7 +276,7 @@
 
 
 
-- (AGScopeBarGroup *)groupWithItem:(AGScopeBarItem *)item;
+- (AGScopeBarGroup *)groupContainingItem:(AGScopeBarItem *)item;
 {
 	for (AGScopeBarGroup * group in mGroups) {
 		if ([group.items containsObject:item]) return group;
@@ -293,16 +292,13 @@
 }
 
 
-- (NSUInteger)indexOfGroupWithIdentifier:(NSString *)identifier;
+- (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier;
 {
-	NSUInteger index = 0;
-	
 	for (AGScopeBarGroup * group in mGroups) {
-		if ([group.identifier isEqual:identifier]) return index;
-		index++;
+		if ([group.identifier isEqual:identifier]) return group;
 	}
 	
-	return NSNotFound;
+	return nil;
 }
 
 
@@ -359,7 +355,7 @@
 {
 	BOOL senderIsMenuItem = [sender isKindOfClass:[NSMenuItem class]];
 	AGScopeBarItem * item = (senderIsMenuItem ? [sender representedObject] : [[sender cell] representedObject]);
-	AGScopeBarGroup * group = [self groupWithItem:item];
+	AGScopeBarGroup * group = [self groupContainingItem:item];
 	
 	[group setSelected:!item.isSelected forItem:item];
 }
@@ -736,16 +732,13 @@
 }
 
 
-- (NSUInteger)indexOfItemWithIdentifier:(NSString *)identifier;
+- (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier;
 {
-	NSUInteger index = 0;
-	
 	for (AGScopeBarItem * item in self.items) {
-		if ([item.identifier isEqual:identifier]) return index;
-		index++;
+		if ([item.identifier isEqual:identifier]) return item;
 	}
 	
-	return NSNotFound;
+	return nil;
 }
 
 
