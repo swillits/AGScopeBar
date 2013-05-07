@@ -27,6 +27,7 @@ typedef enum {
 {
 	NSString * mIdentifier;
 	NSString * mTitle;
+	NSString * mToolTip;
 	NSImage * mImage;
 	NSMenu * mMenu;
 	BOOL mIsSelected;
@@ -39,9 +40,10 @@ typedef enum {
 
 @property (readonly) AGScopeBarGroup * group;
 @property (readonly) NSString * identifier;
-@property (readwrite, retain) NSString * title;
+@property (readwrite, copy) NSString * title;
 @property (readwrite, copy) NSImage * image;
 @property (readwrite, retain) NSMenu * menu;
+@property (readwrite, copy) NSString * toolTip;
 @property (readonly) BOOL isSelected;
 @property (readwrite, assign, getter=isEnabled) BOOL enabled;
 

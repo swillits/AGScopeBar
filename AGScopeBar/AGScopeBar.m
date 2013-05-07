@@ -536,6 +536,7 @@
 	mCollapsedLabelField.font = SCOPE_BAR_FONT;
 	
 	mPopupButton = [[NSPopUpButton alloc] initWithFrame:NSZeroRect pullsDown:NO];
+	mPopupButton.cell = [[[AGScopeBarPopupButtonCell alloc] initTextCell:@"" pullsDown:NO] autorelease];
 	
 	[mCollapsedView addSubview:mCollapsedLabelField];
 	[mCollapsedView addSubview:mPopupButton];
@@ -841,18 +842,9 @@
 			}
 			
 			if (YES) { //self.allowsMultipleSelection) {
-				NSPopUpButtonCell * cell = nil;
-				
-				if (![mPopupButton.cell isKindOfClass:[AGScopeBarPopupButtonCell class]]) {
-					cell = [[[AGScopeBarPopupButtonCell alloc] initTextCell:@"" pullsDown:NO] autorelease];
-					[mPopupButton setCell:cell];
-				} else {
-					cell = [mPopupButton cell];
-				}
-				
-				[cell setUsesItemFromMenu:NO];
-				[cell setMenuItem:[[[NSMenuItem alloc] init] autorelease]];
-				
+				NSPopUpButtonCell * cell = [mPopupButton cell];
+				cell.usesItemFromMenu = NO;
+				cell.menuItem = [[[NSMenuItem alloc] init] autorelease];
 				[self _updatePopup];
 			}
 			
@@ -925,8 +917,10 @@
 		[mPopupButton setTitle:POPUP_TITLE_EMPTY_SELECTION];
 		[cell.menuItem setTitle:POPUP_TITLE_EMPTY_SELECTION];
 	} else if (selectedItems.count == 1) {
-		[mPopupButton setTitle:[(AGScopeBarItem *)[selectedItems lastObject] title]];
-		[cell.menuItem setTitle:[(AGScopeBarItem *)[selectedItems lastObject] title]];
+		NSString * title = [(AGScopeBarItem *)[selectedItems lastObject] title];
+		if (!title) title = @"";
+		[mPopupButton setTitle:title];
+		[cell.menuItem setTitle:title];
 	} else if (selectedItems.count > 1) {
 		[mPopupButton setTitle:POPUP_TITLE_MULTIPLE_SELECTION];
 		[cell.menuItem setTitle:POPUP_TITLE_MULTIPLE_SELECTION];
@@ -1132,7 +1126,7 @@
 - (void)setTitle:(NSString *)title;
 {
 	[mTitle autorelease];
-	mTitle = [title retain];
+	mTitle = [title copy];
 	
 	[self _updateButton];
 }
@@ -1141,6 +1135,23 @@
 - (NSString *)title;
 {
 	return mTitle;
+}
+
+
+
+
+- (void)setToolTip:(NSString *)tooltip;
+{
+	[mToolTip autorelease];
+	mToolTip = [tooltip copy];
+	
+	[self _updateButton];
+}
+
+
+- (NSString *)toolTip;
+{
+	return mToolTip;
 }
 
 
@@ -1246,7 +1257,7 @@
 	// Popup Button
 	// --------------------------------------------
 	if (self.menu) {
-		BOOL pullsDown = (self.title != nil); // ??? forgot this reasoning.
+		BOOL pullsDown = (self.title != nil); // Popups get their title from the selected item, so having a title means a pulldown. Use @"" if needed.
 		AGScopeBarPopupButtonCell * cell = [[[AGScopeBarPopupButtonCell alloc] initTextCell:@"" pullsDown:pullsDown] autorelease];
 		NSMenuItem * titleItem = [[[NSMenuItem alloc] init] autorelease];
 		
@@ -1259,7 +1270,12 @@
 		[cell setArrowPosition:NSPopUpArrowAtBottom];
 		[(NSPopUpButton *)button setPreferredEdge:NSMaxYEdge];
 		
+		// When it pulls down, the popup cell will take the title and image
+		// from its menuItem property  and uses that for drawing. The menuItem's
+		// title gets set when the button's title is set, but the image is not,
+		// so we need to set the image manually.
 		if (pullsDown) {
+			titleItem.image = self.image;
 			[self.menu insertItem:titleItem atIndex:0];
 		}
 		
@@ -1273,7 +1289,22 @@
 	}
 	
 	
-	[button setTitle:self.title];
+	
+	if (self.title) {
+		[button setImage:nil];
+		[button setTitle:self.title];
+		[button setImagePosition:NSNoImage];
+	} else if (self.image) {
+		[button setImage:self.image];
+		[button setTitle:@""];
+		[button setImagePosition:NSImageOnly];
+	} else {
+		[button setImage:nil];
+		[button setTitle:@""];
+		[button setImagePosition:NSNoImage];
+	}
+	
+	[button setToolTip:self.toolTip];
 	[button.cell setRepresentedObject:self];
 	[button setFont:SCOPE_BAR_FONT];
 	[button setTarget:self];
@@ -1302,8 +1333,13 @@
 		[self _recreateButton];
 	}
 	
-	mButton.stringValue = (self.title ? : @"");
+	mButton.toolTip = self.toolTip;
+	mButton.title = (self.title ? : @"");
 	mButton.image = self.image;
+	
+	if ([mButton isKindOfClass:[NSPopUpButton class]]) {
+		[[[mButton cell] menuItem] setImage:self.image];
+	}
 	
 	if (self.image) {
 		[mButton setImagePosition:((mButton.title.length == 0) ? NSImageOnly : NSImageLeft)];
@@ -1347,7 +1383,8 @@
 		return nil;
 	}
 	
-	// The button is only used for drawing, not interaction
+	// The button is only used for drawing the button *background*.
+	// The title/image is always drawn by this AGScopeBarPopupButtonCell itself.
 	mRecessedButton = [[NSButton alloc] initWithFrame:NSZeroRect];
 	mRecessedButton.title = @"";
 	mRecessedButton.buttonType = NSPushOnPushOffButton;
@@ -1405,23 +1442,43 @@
 
 - (NSSize)cellSizeForBounds:(NSRect)frame
 {
+	// We customize cellSizeForBounds because NSPopupButtonCell's
+	// implementation adds a ton of padding in some cases.
+	// In our case we want the cell to fit to the title, icon, and
+	// popup/pulldown indicator image exactly (with minor padding).
+	
 	NSSize superSize = [super cellSizeForBounds:frame];
 	NSSize size = NSMakeSize(0, superSize.height);
 	NSRect titleRect = [self titleRectForBounds:frame];
 	NSRect imageRect = [self imageRectForBounds:frame];
 	CGFloat titleWidth = round(self.attributedTitle.size.width);
-	CGFloat sizeForPopupImage = 12.0;
+	CGFloat widthForPopupImage = 0.0;
 	CGFloat imgWidthPlusPadding = 0;
 	CGFloat padding = 0;
 	
+	// Width of the space needed for the popup/pull down indicator image
+	// including the padding to the left of it (between it and title or icon)
+	widthForPopupImage = 10.0;
+	
+	// The padding that we should use on the left and right sides of everything
+	padding = 7.0;
+	
+	// When there's an image, determine the width of it
 	if (imageRect.size.width > 0) {
-		padding = imageRect.origin.x;
-		imgWidthPlusPadding = (imageRect.size.width + (NSMinX(titleRect) - NSMaxX(imageRect)));
-	} else {
-		padding = titleRect.origin.x;
+		
+		// When there's a title, the icon is to the left of the title.
+		// So, imgWidthPlusPadding is the distance between the left of
+		// the title and icon.
+		if (titleRect.size.width > 0) {
+			imgWidthPlusPadding = (NSMinX(titleRect) - NSMinX(imageRect));
+		
+		// Otherwise if there is not title, it's just the image
+		} else {
+			imgWidthPlusPadding = NSWidth(imageRect);
+		}
 	}
 	
-	size.width += padding + imgWidthPlusPadding + titleWidth + sizeForPopupImage + padding;
+	size.width = padding + imgWidthPlusPadding + titleWidth + widthForPopupImage + padding;
 	size.width = MIN(frame.size.width, size.width);
 	
 	return size;
