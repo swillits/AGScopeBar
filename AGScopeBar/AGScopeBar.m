@@ -771,7 +771,12 @@
 - (void)menuDidClose:(NSMenu *)menu;
 {
 	if (menu == mGroupPopupButton.menu) {
-		[mGroupPopupButton removeAllItems];
+		
+		// Hmm. Was doing this for some reason that I unfortunately cannot recall.
+		// The issue in doing it though is that the clicked-on menu item's action
+		// will not be sent to the target if it's removed from the menu! I thought
+		// it use to work though. This may be a recent change in 10.9?
+		//[mGroupPopupButton removeAllItems];
 	}
 }
 
@@ -1570,7 +1575,7 @@
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)untilMouseUp
 {
 	mPopupCell.controlView = controlView;
-	mPopupCell.menu = self.menu;	
+	mPopupCell.menu = self.menu;
 	return [mPopupCell trackMouse:theEvent inRect:cellFrame ofView:controlView untilMouseUp:untilMouseUp];
 }
 
