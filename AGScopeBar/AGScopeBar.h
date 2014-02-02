@@ -113,7 +113,7 @@ typedef enum {
 	NSView * mAccessoryView;
 	NSArray * mGroups;
 	NSColor * mBottomBorderColor;
-	
+	CGFloat mPreviousAvailableSpace;
 	BOOL mNeedsTiling;
 }
 

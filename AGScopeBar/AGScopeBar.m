@@ -371,7 +371,12 @@
 	availableSpace -= SCOPE_BAR_HORZ_INSET;
 	availableSpace -= (self.accessoryView ? (SCOPE_BAR_HORZ_INSET + self.accessoryView.frame.size.width) : 0.0);
 	
-	
+    // Do not try to tile unless the availableSpace has changed
+	if(mPreviousAvailableSpace == availableSpace) {
+		return;
+	}
+	mPreviousAvailableSpace = availableSpace;
+
 	
 	// Remove all group views (clears out any old ones too)
 	for (NSView * view in [[self.subviews copy] autorelease]) {
@@ -537,6 +542,7 @@
 	
 	mGroupPopupButton = [[NSPopUpButton alloc] initWithFrame:NSZeroRect pullsDown:NO];
 	mGroupPopupButton.cell = [[[AGScopeBarPopupButtonCell alloc] initTextCell:@"" pullsDown:NO] autorelease];
+	mGroupPopupButton.menu.autoenablesItems = NO;
 	mGroupPopupButton.menu.delegate = self;
 	
 	[mCollapsedView addSubview:mCollapsedLabelField];
@@ -964,9 +970,13 @@
 		[cell.menuItem setTitle:POPUP_TITLE_MULTIPLE_SELECTION];
 	}
 	
+	BOOL anyItemEnabled = NO;
 	for (AGScopeBarItem * item in self.items) {
 		item.menuItem.state = (item.isSelected ? NSOnState : NSOffState);
+		[item.menuItem setEnabled:[item isEnabled]];
+		anyItemEnabled = anyItemEnabled || [item isEnabled];
 	}
+	[mGroupPopupButton setEnabled:anyItemEnabled];
 }
 
 
@@ -1278,7 +1288,8 @@
 	[mMenuItem setRepresentedObject:self];
 	[mMenuItem setSubmenu:self.menu];
 	[mMenuItem setState:(self.isSelected ? NSOnState : NSOffState)];
-	
+	[mMenuItem setEnabled:self.enabled];
+    
 	return mMenuItem;
 }
 
