@@ -371,7 +371,12 @@
 	availableSpace -= SCOPE_BAR_HORZ_INSET;
 	availableSpace -= (self.accessoryView ? (SCOPE_BAR_HORZ_INSET + self.accessoryView.frame.size.width) : 0.0);
 	
-	
+    // Do not try to tile unless the availableSpace has changed
+	if(mPreviousAvailableSpace == availableSpace) {
+		return;
+	}
+	mPreviousAvailableSpace = availableSpace;
+
 	
 	// Remove all group views (clears out any old ones too)
 	for (NSView * view in [[self.subviews copy] autorelease]) {
