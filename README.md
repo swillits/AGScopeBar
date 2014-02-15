@@ -8,7 +8,7 @@ zero or more selected, one or more selected, or always only one.
 The right side of the scope bar can also have an accessory view.
 
 
-### Why not MGScopeBar?
+### Advantages
 
 MGScopeBar, a similar project by Matt Gemmell, has been around for
 years, but a number of things bugged me about it so I wrote this.
@@ -16,11 +16,11 @@ years, but a number of things bugged me about it so I wrote this.
 Among the small differences I wanted from MGScopeBar which are noted
 in the screenshot below:
 
-1) Buttons icons use the new inset look versus being flat gray.
-2) Button titles also use the inset look versus being flat black.
-3) When a group collapses into a single popup due to space constraints,
+1. Buttons icons use the new inset look versus being flat gray.
+2. Button titles also use the inset look versus being flat black.
+3. When a group collapses into a single popup due to space constraints,
 it doesn't have a big selected background, and fits to the title width.
-4) AGScopeBar allows the selection mode where one or more items can
+4. AGScopeBar allows the selection mode where one or more items can
 be selected, while MGScopeBar does not.
 
 ![Screenshot](https://github.com/swillits/AGScopeBar/raw/master/Docs/Screenshot.png)
@@ -53,7 +53,7 @@ items and groups, or enable/disable the entire bar at once.
 Button selection (clicks and on/off) are funelled through the single
 delegate method:
 
- - (void)scopeBar:(AGScopeBar *)theScopeBar item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
+    - (void)scopeBar:(AGScopeBar *)theScopeBar item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
 
 See the AGScopeBar header for everything.
 
