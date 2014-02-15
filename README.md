@@ -50,7 +50,8 @@ There are three classes in this project: AGScopeBar is a custom NSView
 which contains a collection of AGScopeBarGroups. Each group contains a
 collection of AGScopeBarItems which are the buttons and popups in the
 bar. Properties on all three classes allow you to tweak appearance,
-selection behavior, behavior during resizing, 
+selection behavior, behavior during resizing, enable/disable individual
+items and groups, or enable/disable the entire bar at once.
 
 Button selection (clicks and on/off) are funelled through the single
 delegate method:

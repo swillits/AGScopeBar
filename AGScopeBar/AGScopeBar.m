@@ -55,8 +55,8 @@
 #define SCOPE_BAR_BUTTON_IMAGE_SIZE		16.0												// size of buttons' images (width and height)
 
 #define POPUP_MIN_WIDTH					40.0					// minimum width a popup-button can be narrowed to.
-#define POPUP_MAX_WIDTH                  200.0
-#define POPUP_RESIZES                    YES
+#define POPUP_MAX_WIDTH                 200.0
+#define POPUP_RESIZES                   YES
 
 #define POPUP_TITLE_EMPTY_SELECTION		NSLocalizedString(@"(None)", nil)		// title used when no items in the popup are selected.
 #define POPUP_TITLE_MULTIPLE_SELECTION	NSLocalizedString(@"(Multiple)", nil)	// title used when multiple items in the popup are selected.
@@ -81,6 +81,7 @@
 - (void)_setSelected:(BOOL)isSelected;
 - (void)_recreateButton;
 - (void)_updateButton;
+- (void)_updateEnabling;
 @end
 
 
@@ -92,6 +93,7 @@
 - (void)tile;
 - (void)validateSelectedItems;
 - (void)_informDelegate_item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
+- (void)_updateEnabling;
 @end
 
 
@@ -119,6 +121,7 @@
 	mBottomBorderColor = [SCOPE_BAR_BORDER_COLOR retain];
 	mSmartResizeEnabled = YES;
 	mGroups = [[NSArray array] retain];
+	mIsEnabled = YES;
 	
 	return self;
 }
@@ -144,6 +147,25 @@
 #pragma mark Properties
 
 @synthesize delegate = mDelegate;
+
+
+- (void)setEnabled:(BOOL)enabled;
+{
+	if (enabled != mIsEnabled) {
+		mIsEnabled = enabled;
+		
+		for (AGScopeBarGroup * group in self.groups) {
+			[group _updateEnabling];
+		}
+	}
+}
+
+
+- (BOOL)isEnabled;
+{
+	return mIsEnabled;
+}
+
 
 
 - (void)setSmartResizeEnabled:(BOOL)smartResizeEnabled
@@ -540,6 +562,7 @@
 	mSelectedItems = [[NSArray alloc] init];
 	mShowsSeparator = YES;
 	mCanBeCollapsed = YES;
+	mIsEnabled = YES;
 	
 	mView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 0, [AGScopeBar scopeBarHeight])];
 	
@@ -665,6 +688,24 @@
 			return NO;
 	}
 }
+
+
+
+- (void)setEnabled:(BOOL)enabled;
+{
+	if (enabled != mIsEnabled) {
+		mIsEnabled = enabled;
+		
+		[self _updateEnabling];
+	}
+}
+
+
+- (BOOL)isEnabled;
+{
+	return mIsEnabled;
+}
+
 
 
 
@@ -853,6 +894,7 @@
 		
 		// Items
 		for (AGScopeBarItem * item in self.items) {
+			[item _updateEnabling];
 			[mView addSubview:item.button];
 			
 			NSRect itemFrame = item.button.frame;
@@ -991,6 +1033,20 @@
 	
 	for (AGScopeBarItem * item in self.items) {
 		item.menuItem.state = (item.isSelected ? NSOnState : NSOffState);
+	}
+	
+	
+	mGroupPopupButton.enabled = (self.scopeBar.isEnabled && self.isEnabled);
+}
+
+
+
+- (void)_updateEnabling;
+{
+	mGroupPopupButton.enabled = (self.scopeBar.isEnabled && self.isEnabled);
+	
+	for (AGScopeBarItem * item in self.items) {
+		[item _updateEnabling];
 	}
 }
 
@@ -1265,7 +1321,7 @@
 - (void)setEnabled:(BOOL)isEnabled;
 {
 	mIsEnabled = isEnabled;
-	[self _updateButton];
+	[self _updateEnabling];
 }
 
 
@@ -1419,11 +1475,18 @@
 	
 	[[mButton cell] setImageScaling:NSImageScaleProportionallyDown];
 	
-	mButton.enabled = self.isEnabled;
 	mButton.state = (self.isSelected ? NSOnState : NSOffState);
+	[self _updateEnabling];
 	
 	[mButton sizeToFit];
 	[self.group.scopeBar setNeedsTiling];
+}
+
+
+
+- (void)_updateEnabling;
+{
+	mButton.enabled = (self.group.scopeBar.isEnabled && self.group.isEnabled && self.isEnabled);
 }
 
 

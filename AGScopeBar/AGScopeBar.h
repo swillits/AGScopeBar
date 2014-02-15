@@ -85,6 +85,7 @@ typedef enum {
 	BOOL mShowsSeparator;
 	BOOL mCanBeCollapsed;
 	AGScopeBarGroupSelectionMode mSelectionMode;
+	BOOL mIsEnabled;
 	NSArray * mItems;
 	NSArray * mSelectedItems;
 	
@@ -104,6 +105,7 @@ typedef enum {
 @property (readwrite, assign) BOOL showsSeparator;
 @property (readwrite, assign) BOOL canBeCollapsed;
 @property (readwrite, assign) AGScopeBarGroupSelectionMode selectionMode;
+@property (readwrite, assign, getter=isEnabled) BOOL enabled;
 @property (readwrite, copy) NSArray * items;
 @property (readonly) NSArray * selectedItems;
 @property (readonly) NSArray * selectedItemIdentifiers;
@@ -136,6 +138,7 @@ typedef enum {
 	NSView * mAccessoryView;
 	NSArray * mGroups;
 	NSColor * mBottomBorderColor;
+	BOOL mIsEnabled;
 	
 	BOOL mNeedsTiling;
 }
@@ -145,6 +148,7 @@ typedef enum {
 @property (readwrite, assign) BOOL smartResizeEnabled;
 @property (readwrite, retain) NSView * accessoryView;
 @property (readwrite, copy) NSArray * groups;
+@property (readwrite, assign, getter=isEnabled) BOOL enabled;
 
 @property (readwrite, retain) NSColor * bottomBorderColor;
 + (CGFloat)scopeBarHeight;
