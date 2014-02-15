@@ -7,6 +7,10 @@ be momentary "normal" push buttons, or have a selection mode with
 zero or more selected, one or more selected, or always only one.
 The right side of the scope bar can also have an accessory view.
 
+* Modern appearance
+* Sleeker API
+* More features
+
 
 ### Advantages
 
@@ -34,7 +38,6 @@ performance problem that was a nuisance to work around. (Long story).
 AGScopeBar doesn't have a "reload" metaphor — you simply modify the
 one thing you want to change directly.
 
-
 ![Screenshot](https://github.com/swillits/AGScopeBar/raw/master/Docs/Screenshot2.png)
 
 Which would you rather write?
@@ -55,7 +58,7 @@ delegate method:
 
     - (void)scopeBar:(AGScopeBar *)theScopeBar item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
 
-See the AGScopeBar header for everything.
+See the [AGScopeBar header](https://github.com/swillits/AGScopeBar/blob/master/AGScopeBar/AGScopeBar.h) for the full API.
 
 
 
