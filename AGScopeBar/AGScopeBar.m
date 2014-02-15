@@ -537,6 +537,7 @@
 	
 	mGroupPopupButton = [[NSPopUpButton alloc] initWithFrame:NSZeroRect pullsDown:NO];
 	mGroupPopupButton.cell = [[[AGScopeBarPopupButtonCell alloc] initTextCell:@"" pullsDown:NO] autorelease];
+	mGroupPopupButton.menu.autoenablesItems = NO;
 	mGroupPopupButton.menu.delegate = self;
 	
 	[mCollapsedView addSubview:mCollapsedLabelField];
@@ -761,6 +762,7 @@
 		
 		for (AGScopeBarItem * item in self.items) {
 			[mGroupPopupButton.menu addItem:item.menuItem];
+			item.menuItem.enabled = item.isEnabled;
 		}
 		
 		[self _updatePopup];
