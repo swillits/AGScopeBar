@@ -7,26 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class AGScopeBar;
 #import "MGScopeBar.h"
+@class AGScopeBar;
+
 
 @interface AGAppDelegate : NSObject <NSApplicationDelegate, MGScopeBarDelegate>
 {
-	AGScopeBar * agScopeBar;
-	MGScopeBar * mgScopeBar;
-	NSWindow * window;
-	NSMenu * agMenu;
-	NSMenu * mgMenu;
-	NSView * agAccessoryView;
-	NSView * mgAccessoryView;
+	IBOutlet AGScopeBar * agScopeBar;
+	IBOutlet MGScopeBar * mgScopeBar;
+	IBOutlet NSWindow * window;
+	IBOutlet NSMenu * agMenu;
+	IBOutlet NSMenu * mgMenu;
+	IBOutlet NSView * agAccessoryView;
+	IBOutlet NSView * mgAccessoryView;
 }
-
-@property (assign) IBOutlet AGScopeBar * agScopeBar;
-@property (assign) IBOutlet MGScopeBar * mgScopeBar;
-@property (assign) IBOutlet NSWindow * window;
-@property (assign) IBOutlet NSMenu * agMenu;
-@property (assign) IBOutlet NSMenu * mgMenu;
-@property (assign) IBOutlet NSView * agAccessoryView;
-@property (assign) IBOutlet NSView * mgAccessoryView;
 
 @end

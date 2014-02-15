@@ -12,20 +12,6 @@
 
 
 @implementation AGAppDelegate
-@synthesize window;
-@synthesize agMenu;
-@synthesize mgMenu;
-@synthesize agAccessoryView;
-@synthesize mgAccessoryView;
-@synthesize agScopeBar;
-@synthesize mgScopeBar;
-
-
-- (void)dealloc
-{
-    [super dealloc];
-}
-
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

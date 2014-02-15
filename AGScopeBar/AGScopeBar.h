@@ -61,14 +61,14 @@ typedef enum {
 	NSMenuItem * mMenuItem;
 }
 
-@property (readonly) AGScopeBarGroup * group;
-@property (readonly) NSString * identifier;
-@property (readwrite, copy) NSString * title;
-@property (readwrite, copy) NSImage * image;
-@property (readwrite, retain) NSMenu * menu;
-@property (readwrite, copy) NSString * toolTip;
-@property (readonly) BOOL isSelected;
-@property (readwrite, assign, getter=isEnabled) BOOL enabled;
+@property (nonatomic, readonly) AGScopeBarGroup * group;
+@property (nonatomic, readonly) NSString * identifier;
+@property (nonatomic, readwrite, copy) NSString * title;
+@property (nonatomic, readwrite, copy) NSImage * image;
+@property (nonatomic, readwrite, retain) NSMenu * menu;
+@property (nonatomic, readwrite, copy) NSString * toolTip;
+@property (nonatomic, readonly) BOOL isSelected;
+@property (nonatomic, readwrite, assign, getter=isEnabled) BOOL enabled;
 
 + (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier;
 - (id)initWithIdentifier:(NSString *)identifier;
@@ -100,15 +100,15 @@ typedef enum {
 }
 
 
-@property (readonly) NSString * identifier;
-@property (readwrite, retain) NSString * label;
-@property (readwrite, assign) BOOL showsSeparator;
-@property (readwrite, assign) BOOL canBeCollapsed;
-@property (readwrite, assign) AGScopeBarGroupSelectionMode selectionMode;
-@property (readwrite, assign, getter=isEnabled) BOOL enabled;
-@property (readwrite, copy) NSArray * items;
-@property (readonly) NSArray * selectedItems;
-@property (readonly) NSArray * selectedItemIdentifiers;
+@property (nonatomic, readonly) NSString * identifier;
+@property (nonatomic, readwrite, retain) NSString * label;
+@property (nonatomic, readwrite, assign) BOOL showsSeparator;
+@property (nonatomic, readwrite, assign) BOOL canBeCollapsed;
+@property (nonatomic, readwrite, assign) AGScopeBarGroupSelectionMode selectionMode;
+@property (nonatomic, readwrite, assign, getter=isEnabled) BOOL enabled;
+@property (nonatomic, readwrite, copy) NSArray * items;
+@property (nonatomic, readonly) NSArray * selectedItems;
+@property (nonatomic, readonly) NSArray * selectedItemIdentifiers;
 
 + (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier;
 - (id)initWithIdentifier:(NSString *)identifier;
@@ -144,13 +144,13 @@ typedef enum {
 }
 
 
-@property (readwrite, assign) IBOutlet id<AGScopeBarDelegate> delegate;
-@property (readwrite, assign) BOOL smartResizeEnabled;
-@property (readwrite, retain) NSView * accessoryView;
-@property (readwrite, copy) NSArray * groups;
-@property (readwrite, assign, getter=isEnabled) BOOL enabled;
+@property (nonatomic, readwrite, assign) IBOutlet id<AGScopeBarDelegate> delegate;
+@property (nonatomic, readwrite, assign) BOOL smartResizeEnabled;
+@property (nonatomic, readwrite, retain) NSView * accessoryView;
+@property (nonatomic, readwrite, copy) NSArray * groups;
+@property (nonatomic, readwrite, assign, getter=isEnabled) BOOL enabled;
 
-@property (readwrite, retain) NSColor * bottomBorderColor;
+@property (nonatomic, readwrite, retain) NSColor * bottomBorderColor;
 + (CGFloat)scopeBarHeight;
 - (void)smartResize;
 

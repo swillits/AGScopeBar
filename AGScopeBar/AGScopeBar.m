@@ -56,7 +56,7 @@
 
 #define POPUP_MIN_WIDTH					40.0					// minimum width a popup-button can be narrowed to.
 #define POPUP_MAX_WIDTH                 200.0
-#define POPUP_RESIZES                   YES
+#define POPUP_RESIZES_TO_FIT_TITLE      1
 
 #define POPUP_TITLE_EMPTY_SELECTION		NSLocalizedString(@"(None)", nil)		// title used when no items in the popup are selected.
 #define POPUP_TITLE_MULTIPLE_SELECTION	NSLocalizedString(@"(Multiple)", nil)	// title used when multiple items in the popup are selected.
@@ -74,9 +74,9 @@
 
 
 @interface AGScopeBarItem ()
-@property (readwrite, assign) AGScopeBarGroup * group;
-@property (readonly) NSButton * button;
-@property (readonly) NSMenuItem * menuItem;
+@property (nonatomic, readwrite, assign) AGScopeBarGroup * group;
+@property (nonatomic, readonly) NSButton * button;
+@property (nonatomic, readonly) NSMenuItem * menuItem;
 
 - (void)_setSelected:(BOOL)isSelected;
 - (void)_recreateButton;
@@ -86,10 +86,10 @@
 
 
 @interface AGScopeBarGroup ()
-@property (readwrite, assign) AGScopeBar * scopeBar;
-@property (readwrite, assign) BOOL isCollapsed;
-@property (readonly) NSView * view;
-@property (readonly) NSView * collapsedView;
+@property (nonatomic, readwrite, assign) AGScopeBar * scopeBar;
+@property (nonatomic, readwrite, assign) BOOL isCollapsed;
+@property (nonatomic, readonly) NSView * view;
+@property (nonatomic, readonly) NSView * collapsedView;
 - (void)tile;
 - (void)validateSelectedItems;
 - (void)_informDelegate_item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
@@ -669,7 +669,6 @@
 			
 		case AGScopeBarGroupSelectNone:
 		case AGScopeBarGroupSelectAny:
-		default:
 			return NO;
 	}
 }
@@ -684,7 +683,6 @@
 			
 		case AGScopeBarGroupSelectNone:
 		case AGScopeBarGroupSelectOne:
-		default:
 			return NO;
 	}
 }
@@ -984,11 +982,11 @@
 {
 	CGFloat width = 0.0;
 	
-	if (POPUP_RESIZES) {
+	#if POPUP_RESIZES_TO_FIT_TITLE
 		[popup sizeToFit];
 		width = popup.frame.size.width;
 		
-	} else {
+	#else
 		NSPopUpButtonCell * inCell = [[[popup cell] retain] autorelease];
 		NSPopUpButtonCell * cell = [[[NSPopUpButtonCell alloc] initTextCell:inCell.title pullsDown:inCell.pullsDown] autorelease];
 		
@@ -1005,7 +1003,7 @@
 		[popup.cell setUsesItemFromMenu:NO];
 		[popup.cell setMenuItem:[[[NSMenuItem alloc] init] autorelease]];
 		[self _updatePopup];
-	}
+	#endif
 	
 	
 	return MIN(MAX(POPUP_MIN_WIDTH, width), POPUP_MAX_WIDTH);

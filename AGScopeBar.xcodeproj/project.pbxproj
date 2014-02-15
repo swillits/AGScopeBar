@@ -13,7 +13,7 @@
 		5DA74E731598E6B000BB1495 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5DA74E711598E6B000BB1495 /* Credits.rtf */; };
 		5DA74E761598E6B000BB1495 /* AGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E751598E6B000BB1495 /* AGAppDelegate.m */; };
 		5DA74E791598E6B000BB1495 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA74E771598E6B000BB1495 /* MainMenu.xib */; };
-		5DBE61B915990CEF0047E1EE /* AGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E831598E6D700BB1495 /* AGScopeBar.m */; };
+		5DBE61B915990CEF0047E1EE /* AGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E831598E6D700BB1495 /* AGScopeBar.m */; settings = {COMPILER_FLAGS = "-Weverything -Wno-semicolon-before-method-body -Wno-direct-ivar-access -Wno-unused-macros -Wno-gnu"; }; };
 		5DBE61BD15990F800047E1EE /* MGRecessedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */; };
 		5DBE61BE15990F860047E1EE /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E801598E6C200BB1495 /* MGScopeBar.m */; };
 /* End PBXBuildFile section */
@@ -144,7 +144,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AG;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Araelium Group";
 			};
 			buildConfigurationList = 5DA74E581598E6B000BB1495 /* Build configuration list for PBXProject "AGScopeBar" */;
@@ -225,7 +225,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -242,7 +244,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -255,7 +259,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -266,7 +272,9 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
