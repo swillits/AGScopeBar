@@ -1,5 +1,4 @@
 # AGScopeBar
-=============
 
 AGScopeBar is a modern implementation of a "scope bar" in OS X UI
 terms. A scope bar is composed of one or more groups of items, where
@@ -9,12 +8,10 @@ zero or more selected, one or more selected, or always only one.
 The right side of the scope bar can also have an accessory view.
 
 
-## Why not MGScopeBar?
+### Why not MGScopeBar?
 
 MGScopeBar, a similar project by Matt Gemmell, has been around for
-years, but a number of things bugged me about it so wrote this. The
-feature set isn't massively different, but there are enough small
-changes and a much cleaner API.
+years, but a number of things bugged me about it so I wrote this.
 
 Among the small differences I wanted from MGScopeBar which are noted
 in the screenshot below:
