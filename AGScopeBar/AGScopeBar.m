@@ -396,17 +396,6 @@
 #pragma mark -
 #pragma mark Private
 
-- (void)scopeButtonClicked:(id)sender
-{
-	BOOL senderIsMenuItem = [sender isKindOfClass:[NSMenuItem class]];
-	AGScopeBarItem * item = (senderIsMenuItem ? [sender representedObject] : [[sender cell] representedObject]);
-	AGScopeBarGroup * group = [self groupContainingItem:item];
-	
-	[group setSelected:!item.isSelected forItem:item];
-}
-
-
-
 - (void)tile;
 {
 	__block CGFloat maxNeededSpaceForGroups = 0.0;
@@ -1354,7 +1343,6 @@
 	[mMenuItem setTitle:title];
 	[mMenuItem setTarget:self];
 	[mMenuItem setImage:self.image];
-	[mMenuItem setRepresentedObject:self];
 	[mMenuItem setSubmenu:self.menu];
 	[mMenuItem setState:(self.isSelected ? NSOnState : NSOffState)];
 	
@@ -1429,7 +1417,6 @@
 	}
 	
 	[button setToolTip:self.toolTip];
-	[button.cell setRepresentedObject:self];
 	[button setFont:SCOPE_BAR_FONT];
 	[button setTarget:self];
 	[button setAction:@selector(scopeButtonClicked:)];
@@ -1491,7 +1478,7 @@
 
 - (void)scopeButtonClicked:(id)sender;
 {
-	[self.group.scopeBar scopeButtonClicked:sender];
+	[self.group setSelected:!self.isSelected forItem:self];
 }
 
 
