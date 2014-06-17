@@ -36,9 +36,10 @@
 
 #define SCOPE_BAR_HORZ_INSET			8.0																		// inset on left and right
 #define SCOPE_BAR_HEIGHT				25.0																	// used in -sizeToFit
-#define SCOPE_BAR_START_COLOR_GRAY		[NSColor colorWithCalibratedWhite:0.75 alpha:1.0]						// bottom color of gray gradient
-#define SCOPE_BAR_END_COLOR_GRAY		[NSColor colorWithCalibratedWhite:0.90 alpha:1.0]						// top color of gray gradient
-#define SCOPE_BAR_BORDER_COLOR			[NSColor colorWithCalibratedWhite:0.5 alpha:1.0]						// bottom line's color
+#define SCOPE_BAR_START_COLOR           [NSColor colorWithCalibratedWhite:0.64 alpha:1.0]						// bottom color of gray gradient
+#define SCOPE_BAR_END_COLOR             [NSColor colorWithCalibratedWhite:0.69 alpha:1.0]						// top color of gray gradient
+#define SCOPE_BAR_TOP_BORDER_COLOR		[NSColor colorWithCalibratedWhite:0.38 alpha:1.0]						// top line's color
+#define SCOPE_BAR_BOTTOM_BORDER_COLOR	[NSColor colorWithCalibratedWhite:0.64 alpha:1.0]						// bottom line's color
 
 #define SCOPE_BAR_SEPARATOR_COLOR		[NSColor colorWithCalibratedWhite:0.52 alpha:1.0]	// color of vertical-line separators between groups
 #define SCOPE_BAR_SEPARATOR_WIDTH		1.0													// width of vertical-line separators between groups
@@ -118,7 +119,11 @@
 		return nil;
 	}
 	
-	mBottomBorderColor = [SCOPE_BAR_BORDER_COLOR retain];
+    mBottomBorderColor = [SCOPE_BAR_BOTTOM_BORDER_COLOR retain];
+    mTopBorderColor = [SCOPE_BAR_TOP_BORDER_COLOR retain];
+    mStartColor = [SCOPE_BAR_START_COLOR retain];
+    mEndColor = [SCOPE_BAR_END_COLOR retain];
+  
 	mSmartResizeEnabled = YES;
 	mGroups = [[NSArray array] retain];
 	mIsEnabled = YES;
@@ -137,6 +142,7 @@
 	[mAccessoryView release];
 	[mGroups release];
 	[mBottomBorderColor release];
+    [mTopBorderColor release];
 	[super dealloc];
 }
 
@@ -231,12 +237,46 @@
 	mBottomBorderColor = [bottomBorderColor retain];
 }
 
+- (void)setTopBorderColor:(NSColor *)topBorderColor;
+{
+	[mTopBorderColor autorelease];
+	mTopBorderColor = [topBorderColor retain];
+}
+
 
 - (NSColor *)bottomBorderColor;
 {
 	return mBottomBorderColor;
 }
 
+- (NSColor *)topBorderColor;
+{
+	return mTopBorderColor;
+}
+
+
+- (void)setStartColor:(NSColor *)startColor;
+{
+	[mStartColor autorelease];
+	mStartColor = [startColor retain];
+}
+
+- (void)setEndColor:(NSColor *)endColor;
+{
+	[mEndColor autorelease];
+	mEndColor = [endColor retain];
+}
+
+
+- (NSColor *)startColor;
+{
+	return mStartColor;
+}
+
+- (NSColor *)endColor;
+{
+	return mEndColor;
+}
 
 + (CGFloat)scopeBarHeight;
 {
@@ -365,8 +405,8 @@
 - (void)drawRect:(NSRect)dirtyRect;
 {
 	// Draw gradient background
-	NSGradient * gradient = [[[NSGradient alloc] initWithStartingColor:SCOPE_BAR_START_COLOR_GRAY 
-														   endingColor:SCOPE_BAR_END_COLOR_GRAY] autorelease];
+	NSGradient * gradient = [[[NSGradient alloc] initWithStartingColor:mStartColor
+														   endingColor:mEndColor] autorelease];
 	[gradient drawInRect:self.bounds angle:90.0];
 	
 	// Draw border
@@ -375,6 +415,12 @@
 		[self.bottomBorderColor set];
 		NSRectFill(lineRect);
 	}
+    
+    if (self.topBorderColor) {
+        NSRect lineRect = NSMakeRect(0, self.bounds.size.height-1, self.bounds.size.width, 1);
+        [self.topBorderColor set];
+        NSRectFill(lineRect);
+    }
 	
 	// Draw separators
 	[self.groups enumerateObjectsUsingBlock:^(AGScopeBarGroup * group, NSUInteger groupIndex, BOOL *stop) {
