@@ -138,8 +138,10 @@ typedef enum {
 	NSView * mAccessoryView;
 	NSArray * mGroups;
 	NSColor * mBottomBorderColor;
+    NSColor * mTopBorderColor;
+    NSColor * mStartColor;
+    NSColor * mEndColor;
 	BOOL mIsEnabled;
-	
 	BOOL mNeedsTiling;
 }
 
@@ -151,6 +153,9 @@ typedef enum {
 @property (nonatomic, readwrite, assign, getter=isEnabled) BOOL enabled;
 
 @property (nonatomic, readwrite, retain) NSColor * bottomBorderColor;
+@property (nonatomic, readwrite, retain) NSColor * topBorderColor;
+@property (nonatomic, readwrite, retain) NSColor * startColor;
+@property (nonatomic, readwrite, retain) NSColor * endColor;
 + (CGFloat)scopeBarHeight;
 - (void)smartResize;
 
