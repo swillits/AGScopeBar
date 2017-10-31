@@ -36,12 +36,12 @@
 @class AGScopeBarAppearance;
 
 
-typedef enum {
+typedef NS_ENUM(unsigned int, AGScopeBarGroupSelectionMode) {
 	AGScopeBarGroupSelectNone, // Momentary buttons
 	AGScopeBarGroupSelectOne,  // Radio buttons
 	AGScopeBarGroupSelectAny,  // Checkbox (0 or more)
 	AGScopeBarGroupSelectAtLeastOne
-} AGScopeBarGroupSelectionMode;
+};
 
 
 
@@ -59,7 +59,7 @@ typedef enum {
 @property (nonatomic, readwrite, assign, getter=isEnabled) BOOL enabled;
 
 + (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier;
-- (id)initWithIdentifier:(NSString *)identifier;
+- (instancetype)initWithIdentifier:(NSString *)identifier NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -79,7 +79,7 @@ typedef enum {
 @property (nonatomic, readonly) NSArray * selectedItemIdentifiers;
 
 + (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier;
-- (id)initWithIdentifier:(NSString *)identifier;
+- (instancetype)initWithIdentifier:(NSString *)identifier NS_DESIGNATED_INITIALIZER;
 
 - (AGScopeBarItem *)addItemWithIdentifier:(NSString *)identifier title:(NSString *)title;
 - (AGScopeBarItem *)insertItemWithIdentifier:(NSString *)identifier title:(NSString *)title atIndex:(NSUInteger)index;

@@ -106,14 +106,14 @@
 }
 
 
-- (id)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
 	if (!(self = [super initWithFrame:frameRect])) {
 		return nil;
 	}
 	
 	mSmartResizeEnabled = YES;
-	mGroups = [[NSArray array] retain];
+	mGroups = [[NSArray alloc] init];
 	mIsEnabled = YES;
 	
 	{
@@ -188,7 +188,7 @@
 @synthesize scopeBarAppearance = mScopeBarAppearance;
 
 
-- (void)setEnabled:(BOOL)enabled;
+- (void)setEnabled:(BOOL)enabled
 {
 	if (enabled != mIsEnabled) {
 		mIsEnabled = enabled;
@@ -200,7 +200,7 @@
 }
 
 
-- (BOOL)isEnabled;
+- (BOOL)isEnabled
 {
 	return mIsEnabled;
 }
@@ -222,7 +222,7 @@
 }
 
 
-- (void)setAccessoryView:(NSView *)accessoryView;
+- (void)setAccessoryView:(NSView *)accessoryView
 {
 	if (mAccessoryView != accessoryView) {
 		[mAccessoryView removeFromSuperview];
@@ -234,14 +234,14 @@
 }
 
 
-- (NSView *)accessoryView;
+- (NSView *)accessoryView
 {
 	return mAccessoryView;
 }
 
 
 
-- (void)setGroups:(NSArray *)groups;
+- (void)setGroups:(NSArray *)groups
 {
 	for (AGScopeBarGroup * group in mGroups) {
 		group.scopeBar = nil;
@@ -258,25 +258,25 @@
 }
 
 
-- (NSArray *)groups;
+- (NSArray *)groups
 {
 	return mGroups;
 }
 
 
-- (void)setBottomBorderColor:(NSColor *)bottomBorderColor;
+- (void)setBottomBorderColor:(NSColor *)bottomBorderColor
 {
 	self.scopeBarAppearance.borderBottomColor = bottomBorderColor;
 }
 
 
-- (NSColor *)bottomBorderColor;
+- (NSColor *)bottomBorderColor
 {
 	return self.scopeBarAppearance.borderBottomColor;
 }
 
 
-+ (CGFloat)scopeBarHeight;
++ (CGFloat)scopeBarHeight
 {
 	return SCOPE_BAR_HEIGHT;
 }
@@ -288,7 +288,7 @@
 #pragma mark -
 #pragma mark Sizing
 
-- (void)smartResize;
+- (void)smartResize
 {
 	[self tile];
 	[self setNeedsDisplay:YES];
@@ -302,7 +302,7 @@
 }
 
 
-- (void)setNeedsTiling;
+- (void)setNeedsTiling
 {
 	mNeedsTiling = YES;
 	[self setNeedsDisplay:YES];
@@ -315,7 +315,7 @@
 #pragma mark -
 #pragma mark Groups
 
-- (AGScopeBarGroup *)addGroupWithIdentifier:(NSString *)identifier label:(NSString *)label items:(NSArray *)items;
+- (AGScopeBarGroup *)addGroupWithIdentifier:(NSString *)identifier label:(NSString *)label items:(NSArray *)items
 {
 	AGScopeBarGroup * group = [AGScopeBarGroup groupWithIdentifier:identifier];
 	group.label = label;
@@ -325,7 +325,7 @@
 }
 
 
-- (AGScopeBarGroup *)insertGroupWithIdentifier:(NSString *)identifier label:(NSString *)label items:(NSArray *)items atIndex:(NSUInteger)index;
+- (AGScopeBarGroup *)insertGroupWithIdentifier:(NSString *)identifier label:(NSString *)label items:(NSArray *)items atIndex:(NSUInteger)index
 {
 	AGScopeBarGroup * group = [AGScopeBarGroup groupWithIdentifier:identifier];
 	group.label = label;
@@ -336,13 +336,13 @@
 
 
 
-- (void)addGroup:(AGScopeBarGroup *)group;
+- (void)addGroup:(AGScopeBarGroup *)group
 {
 	self.groups = [self.groups arrayByAddingObject:group];
 }
 
 
-- (void)insertGroup:(AGScopeBarGroup *)group atIndex:(NSUInteger)index;
+- (void)insertGroup:(AGScopeBarGroup *)group atIndex:(NSUInteger)index
 {
 	NSMutableArray * groups = [[self.groups mutableCopy] autorelease];
 	[groups insertObject:group atIndex:index];
@@ -350,7 +350,7 @@
 }
 
 
-- (void)removeGroupAtIndex:(NSUInteger)index;
+- (void)removeGroupAtIndex:(NSUInteger)index
 {
 	NSMutableArray * groups = [[self.groups mutableCopy] autorelease];
 	[groups removeObjectAtIndex:index];
@@ -359,7 +359,7 @@
 
 
 
-- (AGScopeBarGroup *)groupContainingItem:(AGScopeBarItem *)item;
+- (AGScopeBarGroup *)groupContainingItem:(AGScopeBarItem *)item
 {
 	for (AGScopeBarGroup * group in mGroups) {
 		if ([group.items containsObject:item]) return group;
@@ -369,13 +369,13 @@
 }
 
 
-- (AGScopeBarGroup *)groupAtIndex:(NSUInteger)index;
+- (AGScopeBarGroup *)groupAtIndex:(NSUInteger)index
 {
 	return [self.groups objectAtIndex:index];
 }
 
 
-- (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier;
+- (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier
 {
 	for (AGScopeBarGroup * group in mGroups) {
 		if ([group.identifier isEqual:identifier]) return group;
@@ -391,7 +391,7 @@
 #pragma mark -
 #pragma mark Drawing
 
-- (void)viewWillMoveToWindow:(NSWindow *)newWindow;
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.window];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.window];
@@ -416,7 +416,7 @@
 
 
 
-- (void)viewWillDraw;
+- (void)viewWillDraw
 {
 	if (mNeedsTiling) {
 		[self tile];
@@ -425,7 +425,7 @@
 
 
 
-- (void)drawRect:(NSRect)dirtyRect;
+- (void)drawRect:(NSRect)dirtyRect
 {
 	BOOL isWindowActive = (self.window.isMainWindow || self.window.isKeyWindow);
 	
@@ -469,7 +469,7 @@
 #pragma mark -
 #pragma mark Private
 
-- (void)tile;
+- (void)tile
 {
 	__block CGFloat maxNeededSpaceForGroups = 0.0;
 	CGFloat availableSpace = 0.0;
@@ -626,13 +626,13 @@
 }
 
 
-+ (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier;
++ (AGScopeBarGroup *)groupWithIdentifier:(NSString *)identifier
 {
 	return [[[[self class] alloc] initWithIdentifier:identifier] autorelease];
 }
 
 
-- (id)initWithIdentifier:(NSString *)identifier;
+- (instancetype)initWithIdentifier:(NSString *)identifier
 {
 	if (!(self = [super init])) {
 		return nil;
@@ -670,14 +670,14 @@
 }
 
 
-- (id)init;
+- (instancetype)init NS_UNAVAILABLE
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
 }
 
 
-- (void)dealloc;
+- (void)dealloc
 {
 	for (AGScopeBarItem * item in mItems) {
 		item.group = nil;
@@ -708,7 +708,7 @@
 @synthesize canBeCollapsed = mCanBeCollapsed;
 
 
-- (void)setLabel:(NSString *)label;
+- (void)setLabel:(NSString *)label
 {
 	[mLabel autorelease];
 	mLabel = [label retain];
@@ -717,27 +717,27 @@
 }
 
 
-- (NSString *)label;
+- (NSString *)label
 {
 	return mLabel;
 }
 
 
 
-- (void)setSelectionMode:(AGScopeBarGroupSelectionMode)selectionMode;
+- (void)setSelectionMode:(AGScopeBarGroupSelectionMode)selectionMode
 {
 	mSelectionMode = selectionMode;
 	[self validateSelectedItems];
 }
 
 
-- (AGScopeBarGroupSelectionMode)selectionMode;
+- (AGScopeBarGroupSelectionMode)selectionMode
 {
 	return mSelectionMode;
 }
 
 
-- (BOOL)requiresSelection;
+- (BOOL)requiresSelection
 {
 	switch (self.selectionMode) {
 		case AGScopeBarGroupSelectOne:
@@ -751,7 +751,7 @@
 }
 
 
-- (BOOL)allowsMultipleSelection;
+- (BOOL)allowsMultipleSelection
 {
 	switch (self.selectionMode) {
 		case AGScopeBarGroupSelectAny:
@@ -766,7 +766,7 @@
 
 
 
-- (void)setEnabled:(BOOL)enabled;
+- (void)setEnabled:(BOOL)enabled
 {
 	if (enabled != mIsEnabled) {
 		mIsEnabled = enabled;
@@ -776,7 +776,7 @@
 }
 
 
-- (BOOL)isEnabled;
+- (BOOL)isEnabled
 {
 	return mIsEnabled;
 }
@@ -790,7 +790,7 @@
 #pragma mark -
 #pragma mark Items
 
-- (void)setItems:(NSArray *)items;
+- (void)setItems:(NSArray *)items
 {
 	for (AGScopeBarItem * item in mItems) {
 		item.group = nil;
@@ -810,20 +810,20 @@
 
 
 
-- (NSArray *)items;
+- (NSArray *)items
 {
 	return mItems;
 }
 
 
 
-- (NSArray *)selectedItems;
+- (NSArray *)selectedItems
 {
 	return [[mSelectedItems retain] autorelease];
 }
 
 
-- (NSArray *)selectedItemIdentifiers;
+- (NSArray *)selectedItemIdentifiers
 {
 	return [mSelectedItems valueForKeyPath:@"@unionOfObjects.identifier"];
 }
@@ -832,7 +832,7 @@
 
 #pragma mark -
 
-- (AGScopeBarItem *)addItemWithIdentifier:(NSString *)identifier title:(NSString *)title;
+- (AGScopeBarItem *)addItemWithIdentifier:(NSString *)identifier title:(NSString *)title
 {
 	AGScopeBarItem * item = [AGScopeBarItem itemWithIdentifier:identifier];
 	item.title = title;
@@ -841,7 +841,7 @@
 }
 
 
-- (AGScopeBarItem *)insertItemWithIdentifier:(NSString *)identifier title:(NSString *)title atIndex:(NSUInteger)index;
+- (AGScopeBarItem *)insertItemWithIdentifier:(NSString *)identifier title:(NSString *)title atIndex:(NSUInteger)index
 {
 	AGScopeBarItem * item = [AGScopeBarItem itemWithIdentifier:identifier];
 	item.title = title;
@@ -851,13 +851,13 @@
 
 
 
-- (void)addItem:(AGScopeBarItem *)item;
+- (void)addItem:(AGScopeBarItem *)item
 {
 	self.items = [self.items arrayByAddingObject:item];
 }
 
 
-- (void)insertItem:(AGScopeBarItem *)item atIndex:(NSUInteger)index;
+- (void)insertItem:(AGScopeBarItem *)item atIndex:(NSUInteger)index
 {
 	NSMutableArray * items = [[self.items mutableCopy] autorelease];
 	[items insertObject:item atIndex:index];
@@ -865,7 +865,7 @@
 }
 
 
-- (void)removeItemAtIndex:(NSUInteger)index;
+- (void)removeItemAtIndex:(NSUInteger)index
 {
 	NSMutableArray * items = [[self.items mutableCopy] autorelease];
 	[items removeObjectAtIndex:index];
@@ -874,13 +874,13 @@
 
 
 
-- (AGScopeBarItem *)itemAtIndex:(NSUInteger)index;
+- (AGScopeBarItem *)itemAtIndex:(NSUInteger)index
 {
 	return [self.items objectAtIndex:index];
 }
 
 
-- (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier;
+- (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier
 {
 	for (AGScopeBarItem * item in self.items) {
 		if ([item.identifier isEqual:identifier]) return item;
@@ -894,7 +894,7 @@
 #pragma mark -
 #pragma mark Group Menu Delegate
 
-- (void)menuWillOpen:(NSMenu *)menu;
+- (void)menuWillOpen:(NSMenu *)menu
 {
 	if (menu == (NSMenu *)mGroupPopupButton.menu) {
 		[mGroupPopupButton removeAllItems];
@@ -909,7 +909,7 @@
 }
 
 
-- (void)menuDidClose:(NSMenu *)menu;
+- (void)menuDidClose:(NSMenu *)menu
 {
 	if (menu == (NSMenu *)mGroupPopupButton.menu) {
 		
@@ -931,7 +931,7 @@
 @synthesize collapsedView = mCollapsedView;
 
 
-- (void)tile;
+- (void)tile
 {
 	mLabelField.textColor = self.scopeBar.scopeBarAppearance.labelColor;
 	mLabelField.font = self.scopeBar.scopeBarAppearance.labelFont;
@@ -1030,22 +1030,24 @@
 			
 			
 			if (YES) { //self.allowsMultipleSelection) {
-				NSPopUpButtonCell * cell = [mGroupPopupButton cell];
+				NSPopUpButtonCell * cell = mGroupPopupButton.cell;
 				cell.usesItemFromMenu = NO;
 				cell.menuItem = [[[NSMenuItem alloc] init] autorelease];
 				[self _updatePopup];
 			}
 			
 			
-			[mGroupPopupButton.menu setFont:mScopeBar.scopeBarAppearance.menuItemFont];
-			[mGroupPopupButton setFont:mScopeBar.scopeBarAppearance.itemButtonFont];
-			[mGroupPopupButton setBezelStyle:NSRecessedBezelStyle];
+			mGroupPopupButton.menu.font = mScopeBar.scopeBarAppearance.menuItemFont;
+			mGroupPopupButton.font = mScopeBar.scopeBarAppearance.itemButtonFont;
+			mGroupPopupButton.bezelStyle = NSRecessedBezelStyle;
 			[mGroupPopupButton setButtonType:NSPushOnPushOffButton];
-			[mGroupPopupButton.cell setHighlightsBy:NSCellIsBordered | NSCellIsInsetButton];
+			
+			NSPopUpButtonCell * groupPopupCell = (NSPopUpButtonCell *)mGroupPopupButton.cell; 
+			groupPopupCell.highlightsBy = NSCellIsBordered | NSCellIsInsetButton;
 			[mGroupPopupButton setShowsBorderOnlyWhileMouseInside:YES];
-			[mGroupPopupButton.cell setAltersStateOfSelectedItem:NO];
-			[mGroupPopupButton.cell setArrowPosition:NSPopUpArrowAtBottom];
-			[mGroupPopupButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
+			groupPopupCell.altersStateOfSelectedItem = NO;
+			groupPopupCell.arrowPosition = NSPopUpArrowAtBottom;
+			groupPopupCell.backgroundStyle = NSBackgroundStyleRaised;
 			
 			[mGroupPopupButton sizeToFit];
 			NSRect popFrame = mGroupPopupButton.frame;
@@ -1096,19 +1098,19 @@
 
 
 
-- (void)_updatePopup;
+- (void)_updatePopup
 {
-	NSPopUpButtonCell * cell = [mGroupPopupButton cell];
+	NSPopUpButtonCell * cell = mGroupPopupButton.cell;
 	NSArray * selectedItems = self.selectedItems;
 	
 	if (selectedItems.count == 0) {
 		[mGroupPopupButton setTitle:POPUP_TITLE_EMPTY_SELECTION];
 		[cell.menuItem setTitle:POPUP_TITLE_EMPTY_SELECTION];
 	} else if (selectedItems.count == 1) {
-		NSString * title = [(AGScopeBarItem *)[selectedItems lastObject] title];
+		NSString * title = ((AGScopeBarItem *)selectedItems.lastObject).title;
 		if (!title) title = @"";
 		[mGroupPopupButton setTitle:title];
-		[cell.menuItem setTitle:title];
+		cell.menuItem.title = title;
 	} else if (selectedItems.count > 1) {
 		[mGroupPopupButton setTitle:POPUP_TITLE_MULTIPLE_SELECTION];
 		[cell.menuItem setTitle:POPUP_TITLE_MULTIPLE_SELECTION];
@@ -1124,7 +1126,7 @@
 
 
 
-- (void)_updateEnabling;
+- (void)_updateEnabling
 {
 	mGroupPopupButton.enabled = (self.scopeBar.isEnabled && self.isEnabled);
 	
@@ -1135,14 +1137,14 @@
 
 
 
-- (void)setSelected:(BOOL)willBeSelected forItemWithIdentifier:(NSString *)identifier;
+- (void)setSelected:(BOOL)willBeSelected forItemWithIdentifier:(NSString *)identifier
 {
 	[self setSelected:willBeSelected forItem:[self itemWithIdentifier:identifier]];
 }
 
 
 
-- (void)setSelected:(BOOL)willBeSelected forItem:(AGScopeBarItem *)item;
+- (void)setSelected:(BOOL)willBeSelected forItem:(AGScopeBarItem *)item
 {
 	if (item.isSelected == willBeSelected) return;
 	
@@ -1159,7 +1161,7 @@
 	
 	// Validate the selected items list
 	// ------------------------------------------
-	NSArray * oldSelectedItems = [self selectedItems];
+	NSArray * oldSelectedItems = self.selectedItems;
 	NSArray * newSelectedItems = nil;
 	
 	
@@ -1167,7 +1169,7 @@
 		if (self.allowsMultipleSelection) {
 			newSelectedItems = [oldSelectedItems arrayByAddingObject:item];
 		} else {
-			newSelectedItems = [NSArray arrayWithObject:item];
+			newSelectedItems = @[item];
 		}
 	} else {
 		
@@ -1192,7 +1194,7 @@
 
 
 
-- (void)validateSelectedItems;
+- (void)validateSelectedItems
 {
 	NSArray * selectedItems = self.selectedItems;
 	
@@ -1200,7 +1202,7 @@
 	if (self.requiresSelection) {
 		if (selectedItems.count == 0) {
 			if (self.items.count > 0) {
-				selectedItems = [NSArray arrayWithObject:[self.items objectAtIndex:0]];
+				selectedItems = @[self.items[0]];
 			}
 		}
 	}
@@ -1217,7 +1219,7 @@
 
 
 
-- (void)_setSelectedItems:(NSArray *)newSelectedItems;
+- (void)_setSelectedItems:(NSArray *)newSelectedItems
 {
 	NSArray * oldSelectedItems = mSelectedItems;
 	
@@ -1259,7 +1261,7 @@
 
 
 
-- (void)_informDelegate_item:(AGScopeBarItem *)item wasSelected:(BOOL)selected;
+- (void)_informDelegate_item:(AGScopeBarItem *)item wasSelected:(BOOL)selected
 {
 	if ([self.scopeBar.delegate respondsToSelector:@selector(scopeBar:item:wasSelected:)]) {
 		[self.scopeBar.delegate scopeBar:self.scopeBar item:item wasSelected:selected];
@@ -1296,14 +1298,14 @@
 }
 
 
-+ (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier;
++ (AGScopeBarItem *)itemWithIdentifier:(NSString *)identifier
 {
 	return [[[[self class] alloc] initWithIdentifier:identifier] autorelease];
 }
 
 
 
-- (id)initWithIdentifier:(NSString *)identifier;
+- (instancetype)initWithIdentifier:(NSString *)identifier
 {
 	if (!(self = [super init])) {
 		return nil;
@@ -1317,7 +1319,7 @@
 
 
 
-- (id)init;
+- (instancetype)init NS_UNAVAILABLE
 {
 	[self doesNotRecognizeSelector:_cmd];
 	return nil;
@@ -1345,7 +1347,7 @@
 @synthesize identifier = mIdentifier;
 
 
-- (void)setTitle:(NSString *)title;
+- (void)setTitle:(NSString *)title
 {
 	[mTitle autorelease];
 	mTitle = [title copy];
@@ -1354,7 +1356,7 @@
 }
 
 
-- (NSString *)title;
+- (NSString *)title
 {
 	return mTitle;
 }
@@ -1362,7 +1364,7 @@
 
 
 
-- (void)setToolTip:(NSString *)tooltip;
+- (void)setToolTip:(NSString *)tooltip
 {
 	[mToolTip autorelease];
 	mToolTip = [tooltip copy];
@@ -1371,7 +1373,7 @@
 }
 
 
-- (NSString *)toolTip;
+- (NSString *)toolTip
 {
 	return mToolTip;
 }
@@ -1379,22 +1381,22 @@
 
 
 
-- (void)setImage:(NSImage *)image;
+- (void)setImage:(NSImage *)image
 {
 	[mImage autorelease];
 	mImage = [image copy];
-	[mImage setSize:NSMakeSize(SCOPE_BAR_BUTTON_IMAGE_SIZE, SCOPE_BAR_BUTTON_IMAGE_SIZE)];
+	mImage.size = NSMakeSize(SCOPE_BAR_BUTTON_IMAGE_SIZE, SCOPE_BAR_BUTTON_IMAGE_SIZE);
 	[self _updateButton];
 }
 
 
-- (NSImage *)image;
+- (NSImage *)image
 {
 	return mImage;
 }
 
 
-- (void)setMenu:(NSMenu *)menu;
+- (void)setMenu:(NSMenu *)menu
 {
 	[mMenu autorelease];
 	mMenu = [menu retain];
@@ -1402,26 +1404,26 @@
 }
 
 
-- (NSMenu *)menu;
+- (NSMenu *)menu
 {
 	return mMenu;
 }
 
 
-- (BOOL)isSelected;
+- (BOOL)isSelected
 {
 	return mIsSelected;
 }
 
 
-- (void)setEnabled:(BOOL)isEnabled;
+- (void)setEnabled:(BOOL)isEnabled
 {
 	mIsEnabled = isEnabled;
 	[self _updateEnabling];
 }
 
 
-- (BOOL)isEnabled;
+- (BOOL)isEnabled
 {
 	return mIsEnabled;
 }
@@ -1435,13 +1437,13 @@
 @synthesize group = mGroup;
 
 
-- (NSButton *)button;
+- (NSButton *)button
 {
 	return mButton;
 }
 
 
-- (NSMenuItem *)menuItem;
+- (NSMenuItem *)menuItem
 {
 	NSString * title = (self.title ? : @"");
 	
@@ -1449,11 +1451,11 @@
 		mMenuItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(scopeButtonClicked:) keyEquivalent:@""];
 	}
 	
-	[mMenuItem setTitle:title];
-	[mMenuItem setTarget:self];
-	[mMenuItem setImage:self.image];
-	[mMenuItem setSubmenu:self.menu];
-	[mMenuItem setState:(self.isSelected ? NSOnState : NSOffState)];
+	mMenuItem.title = title;
+	mMenuItem.target = self;
+	mMenuItem.image = self.image;
+	mMenuItem.submenu = self.menu;
+	mMenuItem.state = (self.isSelected ? NSOnState : NSOffState);
 	
 	return mMenuItem;
 }
@@ -1461,7 +1463,7 @@
 
 
 // ONLY CALLED BY THE GROUP
-- (void)_setSelected:(BOOL)isSelected;
+- (void)_setSelected:(BOOL)isSelected
 {
 	mIsSelected = isSelected;
 	[self _updateButton];
@@ -1469,7 +1471,7 @@
 
 
 
-- (void)_recreateButton;
+- (void)_recreateButton
 {
 	NSButton * button = nil;
 	
@@ -1483,13 +1485,13 @@
 		NSMenuItem * titleItem = [[[NSMenuItem alloc] init] autorelease];
 		
 		button = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect pullsDown:pullsDown] autorelease];
-		[button setCell:cell];
-		[cell setMenu:self.menu];
+		button.cell = cell;
+		cell.menu = self.menu;
 		[cell setUsesItemFromMenu:NO];
-		[cell setMenuItem:titleItem];
+		cell.menuItem = titleItem;
 		[cell setAltersStateOfSelectedItem:NO];
-		[cell setArrowPosition:NSPopUpArrowAtBottom];
-		[(NSPopUpButton *)button setPreferredEdge:NSMaxYEdge];
+		cell.arrowPosition = NSPopUpArrowAtBottom;
+		((NSPopUpButton *)button).preferredEdge = NSMaxYEdge;
 		
 		// When it pulls down, the popup cell will take the title and image
 		// from its menuItem property  and uses that for drawing. The menuItem's
@@ -1500,7 +1502,7 @@
 			[self.menu insertItem:titleItem atIndex:0];
 		}
 		
-		[self.menu setFont:self.group.scopeBar.scopeBarAppearance.menuItemFont];
+		self.menu.font = self.group.scopeBar.scopeBarAppearance.menuItemFont;
 		
 		
 		// Standard Button
@@ -1513,23 +1515,23 @@
 	
 	if (self.title) {
 		[button setImage:nil];
-		[button setTitle:self.title];
-		[button setImagePosition:NSNoImage];
+		button.title = self.title;
+		button.imagePosition = NSNoImage;
 	} else if (self.image) {
-		[button setImage:self.image];
-		[button setTitle:@""];
-		[button setImagePosition:NSImageOnly];
+		button.image = self.image;
+		button.title = @"";
+		button.imagePosition = NSImageOnly;
 	} else {
 		[button setImage:nil];
-		[button setTitle:@""];
-		[button setImagePosition:NSNoImage];
+		button.title = @"";
+		button.imagePosition = NSNoImage;
 	}
 	
-	[button setFont:self.group.scopeBar.scopeBarAppearance.itemButtonFont];
-	[button setToolTip:self.toolTip];
-	[button setTarget:self];
-	[button setAction:@selector(scopeButtonClicked:)];
-	[button setBezelStyle:NSRecessedBezelStyle];
+	button.font = self.group.scopeBar.scopeBarAppearance.itemButtonFont;
+	button.toolTip = self.toolTip;
+	button.target = self;
+	button.action = @selector(scopeButtonClicked:);
+	button.bezelStyle = NSRecessedBezelStyle;
 	[button setButtonType:NSPushOnPushOffButton];
 	[button.cell setHighlightsBy:NSCellIsBordered | NSCellIsInsetButton];
 	[button setShowsBorderOnlyWhileMouseInside:YES];
@@ -1544,7 +1546,7 @@
 
 
 
-- (void)_updateButton;
+- (void)_updateButton
 {
 	if (!mButton ||
 		(![mButton isKindOfClass:[NSPopUpButton class]] && self.menu) ||
@@ -1558,16 +1560,16 @@
 	mButton.image = self.image;
 	
 	if ([mButton isKindOfClass:[NSPopUpButton class]]) {
-		[[[mButton cell] menuItem] setImage:self.image];
+		[mButton.cell menuItem].image = self.image;
 	}
 	
 	if (self.image) {
-		[mButton setImagePosition:((mButton.title.length == 0) ? NSImageOnly : NSImageLeft)];
+		mButton.imagePosition = ((mButton.title.length == 0) ? NSImageOnly : NSImageLeft);
 	} else {
-		[mButton setImagePosition:NSNoImage];
+		mButton.imagePosition = NSNoImage;
 	}
 	
-	[[mButton cell] setImageScaling:NSImageScaleProportionallyDown];
+	[mButton.cell setImageScaling:NSImageScaleProportionallyDown];
 	
 	mButton.state = (self.isSelected ? NSOnState : NSOffState);
 	[self _updateEnabling];
@@ -1578,12 +1580,12 @@
 
 
 
-- (void)_updateStyleFromScopeBarAppearance;
+- (void)_updateStyleFromScopeBarAppearance
 {
-	[mButton setFont:self.group.scopeBar.scopeBarAppearance.itemButtonFont];
+	mButton.font = self.group.scopeBar.scopeBarAppearance.itemButtonFont;
 	
 	if (self.menu) {
-		[self.menu setFont:self.group.scopeBar.scopeBarAppearance.itemButtonFont];
+		self.menu.font = self.group.scopeBar.scopeBarAppearance.itemButtonFont;
 	}
 	
 	[mButton sizeToFit];
@@ -1591,14 +1593,14 @@
 
 
 
-- (void)_updateEnabling;
+- (void)_updateEnabling
 {
 	mButton.enabled = (self.group.scopeBar.isEnabled && self.group.isEnabled && self.isEnabled);
 }
 
 
 
-- (void)scopeButtonClicked:(id)sender;
+- (void)scopeButtonClicked:(id)sender
 {
 	[self.group setSelected:!self.isSelected forItem:self];
 }
@@ -1622,7 +1624,7 @@
 }
 
 
-- (id)initTextCell:(NSString *)title pullsDown:(BOOL)pullsDown
+- (instancetype)initTextCell:(NSString *)title pullsDown:(BOOL)pullsDown
 {
 	if (!(self = [super initTextCell:title pullsDown:pullsDown])) {
 		return nil;
@@ -1658,7 +1660,7 @@
 
 
 
-- (id)copyWithZone:(NSZone *)zone;
+- (id)copyWithZone:(NSZone *)zone
 {
 	AGScopeBarPopupButtonCell * copy = [[AGScopeBarPopupButtonCell alloc] initTextCell:self.title pullsDown:self.pullsDown];
 	
@@ -1679,7 +1681,7 @@
 
 - (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
 {
-	[mRecessedButton setFrame:frame];
+	mRecessedButton.frame = frame;
 	[mRecessedButton drawRect:frame];
 }
 
@@ -1738,13 +1740,13 @@
 
 - (void)setAltersStateOfSelectedItem:(BOOL)flag
 {
-	[mPopupCell setAltersStateOfSelectedItem:flag];
+	mPopupCell.altersStateOfSelectedItem = flag;
 }
 
 
 - (BOOL)altersStateOfSelectedItem
 {
-	return [mPopupCell altersStateOfSelectedItem];
+	return mPopupCell.altersStateOfSelectedItem;
 }
 
 
@@ -1756,7 +1758,7 @@
 
 - (NSMenuItem *)selectedItem
 {
-	return [mPopupCell selectedItem];
+	return mPopupCell.selectedItem;
 }
 
 
