@@ -11,6 +11,14 @@
 
 
 @implementation AGAppDelegate
+{
+	IBOutlet AGScopeBar * agScopeBar;
+	IBOutlet NSWindow * window;
+	IBOutlet NSMenu * agMenu;
+	IBOutlet NSView * agAccessoryView;
+}
+
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

@@ -7,15 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class AGScopeBar;
 
 
-@interface AGAppDelegate : NSObject <NSApplicationDelegate, MGScopeBarDelegate>
-{
-	IBOutlet AGScopeBar * agScopeBar;
-	IBOutlet NSWindow * window;
-	IBOutlet NSMenu * agMenu;
-	IBOutlet NSView * agAccessoryView;
-}
+@interface AGAppDelegate : NSObject <NSApplicationDelegate>
 
 @end
