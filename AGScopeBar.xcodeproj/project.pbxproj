@@ -14,8 +14,6 @@
 		5DA74E761598E6B000BB1495 /* AGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E751598E6B000BB1495 /* AGAppDelegate.m */; };
 		5DA74E791598E6B000BB1495 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DA74E771598E6B000BB1495 /* MainMenu.xib */; };
 		5DBE61B915990CEF0047E1EE /* AGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E831598E6D700BB1495 /* AGScopeBar.m */; settings = {COMPILER_FLAGS = "-Weverything -Wno-semicolon-before-method-body -Wno-direct-ivar-access -Wno-unused-macros -Wno-gnu"; }; };
-		5DBE61BD15990F800047E1EE /* MGRecessedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */; };
-		5DBE61BE15990F860047E1EE /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA74E801598E6C200BB1495 /* MGScopeBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,12 +30,8 @@
 		5DA74E741598E6B000BB1495 /* AGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAppDelegate.h; sourceTree = "<group>"; };
 		5DA74E751598E6B000BB1495 /* AGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAppDelegate.m; sourceTree = "<group>"; };
 		5DA74E781598E6B000BB1495 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		5DA74E7F1598E6C200BB1495 /* MGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGScopeBar.h; sourceTree = "<group>"; };
-		5DA74E801598E6C200BB1495 /* MGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGScopeBar.m; sourceTree = "<group>"; };
 		5DA74E821598E6D700BB1495 /* AGScopeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGScopeBar.h; sourceTree = "<group>"; };
 		5DA74E831598E6D700BB1495 /* AGScopeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGScopeBar.m; sourceTree = "<group>"; };
-		5DBE61BB15990F800047E1EE /* MGRecessedPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRecessedPopUpButtonCell.h; sourceTree = "<group>"; };
-		5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRecessedPopUpButtonCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,10 +89,6 @@
 				5DA74E751598E6B000BB1495 /* AGAppDelegate.m */,
 				5DA74E821598E6D700BB1495 /* AGScopeBar.h */,
 				5DA74E831598E6D700BB1495 /* AGScopeBar.m */,
-				5DA74E7F1598E6C200BB1495 /* MGScopeBar.h */,
-				5DA74E801598E6C200BB1495 /* MGScopeBar.m */,
-				5DBE61BB15990F800047E1EE /* MGRecessedPopUpButtonCell.h */,
-				5DBE61BC15990F800047E1EE /* MGRecessedPopUpButtonCell.m */,
 				5DA74E771598E6B000BB1495 /* MainMenu.xib */,
 				5DA74E691598E6B000BB1495 /* Supporting Files */,
 			);
@@ -185,8 +175,6 @@
 				5DA74E6F1598E6B000BB1495 /* main.m in Sources */,
 				5DBE61B915990CEF0047E1EE /* AGScopeBar.m in Sources */,
 				5DA74E761598E6B000BB1495 /* AGAppDelegate.m in Sources */,
-				5DBE61BE15990F860047E1EE /* MGScopeBar.m in Sources */,
-				5DBE61BD15990F800047E1EE /* MGRecessedPopUpButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
