@@ -7,7 +7,7 @@
 //
 //  Licensed under the "zlib" license.
 //
-//  Copyright (c) 2012-2014, Seth Willits
+//  Copyright (c) 2012-2017, Seth Willits
 //
 //	This software is provided 'as-is', without any express or implied
 //	warranty. In no event will the authors be held liable for any damages
@@ -110,7 +110,6 @@ typedef NS_ENUM(unsigned int, AGScopeBarGroupSelectionMode) {
 
 @property (nonatomic, readwrite, retain) NSColor * bottomBorderColor; //! Deprecated. Use scopeBarAppearance.borderColor
 + (CGFloat)scopeBarHeight;
-- (void)smartResize;
 
 - (AGScopeBarGroup *)addGroupWithIdentifier:(NSString *)identifier label:(NSString *)label items:(NSArray *)items;
 - (AGScopeBarGroup *)insertGroupWithIdentifier:(NSString *)identifier label:(NSString *)label items:(NSArray *)items atIndex:(NSUInteger)index;

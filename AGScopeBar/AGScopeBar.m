@@ -82,7 +82,6 @@
 
 
 @interface AGScopeBar ()
-- (void)setNeedsTiling;
 - (void)tile;
 @end
 
@@ -101,8 +100,7 @@
 	NSArray * mGroups;
 	BOOL mIsEnabled;
 	AGScopeBarAppearance * mScopeBarAppearance;
-	
-	BOOL mNeedsTiling;
+	NSTimer * mTilingTimer;
 }
 
 
@@ -112,6 +110,7 @@
 		return nil;
 	}
 	
+	self.translatesAutoresizingMaskIntoConstraints = NO;
 	mSmartResizeEnabled = YES;
 	mGroups = [[NSArray alloc] init];
 	mIsEnabled = YES;
@@ -147,6 +146,8 @@
 		group.scopeBar = nil;
 	}
 	
+	[mTilingTimer invalidate];
+	mTilingTimer = nil;
 	[mAccessoryView release];
 	[mGroups release];
 	[mScopeBarAppearance release];
@@ -263,24 +264,25 @@
 #pragma mark -
 #pragma mark Sizing
 
-- (void)smartResize
+- (void)resizeSubviewsWithOldSize:(NSSize)oldSize
 {
-	[self tile];
-	[self setNeedsDisplay:YES];
-}
-
-
-- (void)resizeSubviewsWithOldSize:(NSSize)oldBoundsSize
-{
-	[super resizeSubviewsWithOldSize:oldBoundsSize];
-	[self smartResize];
+	// On 10.10/11 -layoutIfNeeded -> -layout (default implementation) calls this method even if the size is the same.
+	// We only actually need to tile when the size changes, so we need to specifically check for that, otherwise
+	// we end up tiling every time the system wants to do layout, which then triggers layout b/c of the add/remove subviews
+	if (!NSEqualSizes(oldSize, self.bounds.size)) {
+		[self setNeedsTiling];
+	}
 }
 
 
 - (void)setNeedsTiling
 {
-	mNeedsTiling = YES;
-	[self setNeedsDisplay:YES];
+	// Using this approach because if we add/remove views during autolayout (in -layout), it can re-trigger layout, so we end up in an endless loop. That only seems to happen on 10.10/10.11 though. So to work around it, we're defering any tiling to happen outside of the normal layout process, so that it can't end up in a loop.
+	// Ideally we would do all layout in -layout and not need -resizeSubviewsWithOldSize
+	if (!mTilingTimer) {
+		mTilingTimer = [NSTimer timerWithTimeInterval:0.0 target:self selector:@selector(tile) userInfo:nil repeats:NO];
+		[NSRunLoop.mainRunLoop addTimer:mTilingTimer forMode:NSRunLoopCommonModes];
+	}
 }
 
 
@@ -391,15 +393,6 @@
 
 
 
-- (void)viewWillDraw
-{
-	if (mNeedsTiling) {
-		[self tile];
-	}
-}
-
-
-
 - (void)drawRect:(NSRect)dirtyRect
 {
 	BOOL isWindowActive = (self.window.isMainWindow || self.window.isKeyWindow);
@@ -446,6 +439,10 @@
 
 - (void)tile
 {
+	[mTilingTimer invalidate];
+	mTilingTimer = nil;
+	
+	
 	__block CGFloat maxNeededSpaceForGroups = 0.0;
 	CGFloat availableSpace = 0.0;
 	
@@ -564,7 +561,8 @@
 		[self addSubview:self.accessoryView];
 	}
 	
-	mNeedsTiling = NO;
+	[mTilingTimer invalidate];
+	mTilingTimer = nil;
 }
 
 @end
