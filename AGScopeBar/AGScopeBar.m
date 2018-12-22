@@ -114,26 +114,7 @@
 	mSmartResizeEnabled = YES;
 	mGroups = [[NSArray alloc] init];
 	mIsEnabled = YES;
-	
-	{
-		// Yosemite and Later
-		mScopeBarAppearance = [[AGScopeBarAppearance alloc] init];
-		
-		mScopeBarAppearance.backgroundTopColor              = [NSColor colorWithCalibratedWhite:0.89 alpha:1.0];
-		mScopeBarAppearance.backgroundBottomColor           = [NSColor colorWithCalibratedWhite:0.87 alpha:1.0];
-		mScopeBarAppearance.inactiveBackgroundTopColor      = [NSColor colorWithCalibratedWhite:0.95 alpha:1.0];
-		mScopeBarAppearance.inactiveBackgroundBottomColor   = [NSColor colorWithCalibratedWhite:0.95 alpha:1.0];
-		mScopeBarAppearance.borderBottomColor               = [NSColor colorWithCalibratedWhite:0.6 alpha:1.0];
-		
-		mScopeBarAppearance.separatorColor                  = [NSColor colorWithCalibratedWhite:0.52 alpha:1.0];
-		mScopeBarAppearance.separatorWidth                  = 1.0;
-		mScopeBarAppearance.separatorHeight                 = 16.0;
-		
-		mScopeBarAppearance.labelColor                      = [NSColor colorWithCalibratedWhite:0.45 alpha:1.0];
-		mScopeBarAppearance.labelFont                       = [NSFont boldSystemFontOfSize:12.0];
-		mScopeBarAppearance.itemButtonFont                  = [NSFont boldSystemFontOfSize:12.0];
-		mScopeBarAppearance.menuItemFont                    = [NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSRegularControlSize]];
-	}
+	mScopeBarAppearance = nil;
 	
 	return self;
 }
@@ -162,6 +143,17 @@
 
 @synthesize delegate = mDelegate;
 @synthesize scopeBarAppearance = mScopeBarAppearance;
+
+
+- (AGScopeBarAppearance *)scopeBarAppearance
+{
+	if (!mScopeBarAppearance) {
+		return [AGScopeBarAppearance appearanceForAppearance:self.window.effectiveAppearance];
+	}
+	
+	return mScopeBarAppearance;
+}
+
 
 
 - (void)setEnabled:(BOOL)enabled
@@ -1790,6 +1782,75 @@
 	NSFont * itemButtonFont;
 	NSFont * menuItemFont;
 }
+
+
++ (instancetype)appearanceForAppearance:(NSAppearance *)appearance
+{
+	BOOL isDark = NO;
+	
+	if (@available(macOS 10.14, *)) {
+		NSString * name = [appearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameDarkAqua, NSAppearanceNameAqua]];
+		isDark = [name isEqual:NSAppearanceNameDarkAqua];
+	}
+		
+	
+	return isDark? self.dark : self.light;
+}
+
+
++ (instancetype)light
+{
+	static AGScopeBarAppearance * app = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		app = [[AGScopeBarAppearance alloc] init];
+		
+		app.backgroundTopColor              = [NSColor colorWithCalibratedWhite:0.89 alpha:1.0];
+		app.backgroundBottomColor           = [NSColor colorWithCalibratedWhite:0.87 alpha:1.0];
+		app.inactiveBackgroundTopColor      = [NSColor colorWithCalibratedWhite:0.95 alpha:1.0];
+		app.inactiveBackgroundBottomColor   = [NSColor colorWithCalibratedWhite:0.95 alpha:1.0];
+		app.borderBottomColor               = [NSColor colorWithCalibratedWhite:0.6 alpha:1.0];
+		
+		app.separatorColor                  = [NSColor colorWithCalibratedWhite:0.52 alpha:1.0];
+		app.separatorWidth                  = 1.0;
+		app.separatorHeight                 = 16.0;
+		
+		app.labelColor                      = [NSColor colorWithCalibratedWhite:0.45 alpha:1.0];
+		app.labelFont                       = [NSFont boldSystemFontOfSize:12.0];
+		app.itemButtonFont                  = [NSFont boldSystemFontOfSize:12.0];
+		app.menuItemFont                    = [NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSControlSizeRegular]];
+	});
+	
+	return app;
+}
+
+
++ (instancetype)dark
+{
+	static AGScopeBarAppearance * app = nil;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		app = [[AGScopeBarAppearance alloc] init];
+		
+		app.backgroundTopColor              = [NSColor colorWithCalibratedWhite:0.176 alpha:1.0];
+		app.backgroundBottomColor           = [NSColor colorWithCalibratedWhite:0.176 alpha:1.0];
+		app.inactiveBackgroundTopColor      = [NSColor colorWithCalibratedWhite:0.176 alpha:1.0];
+		app.inactiveBackgroundBottomColor   = [NSColor colorWithCalibratedWhite:0.176 alpha:1.0];
+		app.borderBottomColor               = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
+		
+		app.separatorColor                  = [NSColor colorWithCalibratedWhite:0.32 alpha:1.0];
+		app.separatorWidth                  = 1.0;
+		app.separatorHeight                 = 16.0;
+		
+		app.labelColor                      = [NSColor colorWithCalibratedWhite:0.66 alpha:1.0];
+		app.labelFont                       = [NSFont boldSystemFontOfSize:12.0];
+		app.itemButtonFont                  = [NSFont boldSystemFontOfSize:12.0];
+		app.menuItemFont                    = [NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSControlSizeRegular]];
+	});
+	
+	return app;
+}
+
 
 
 - (void)dealloc
